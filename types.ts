@@ -5,8 +5,7 @@
 *****************************************************************************************/
 
 import { ReactNode } from "react";
-import { TextProps, TextStyle, ViewStyle } from "react-native";
-
+import { TextInput, TextInputProps, TextProps, TextStyle, TouchableOpacityProps, ViewStyle } from "react-native";
 
 export type ScreenWrapperProps = {
     style?: ViewStyle;
@@ -56,4 +55,29 @@ export type HeaderProps = {
     style?: ViewStyle;
     leftIcon?: ReactNode;
     rightIcon?: ReactNode;
+};
+
+export interface InputProps extends TextInputProps {
+    icon?: React.ReactNode;
+    containerStyle?: ViewStyle;
+    inputStyle?: TextStyle;
+    inputRef?: React.RefObject<TextInput>;
+    // label?: string;
+    // error?: string;
+}
+
+export interface CustomButtonProps extends TouchableOpacityProps {
+    style?: ViewStyle;
+    onPress?: () => void;
+    loading?: boolean;
+    children: React.ReactNode;
+}
+
+export type ImageUploadProps = {
+    file?: any;
+    onSelect: (file: any) => void;
+    onClear: () => void;
+    containerStyle?: ViewStyle;
+    imageStyle?: ViewStyle;
+    placeholder?: string;
 };
