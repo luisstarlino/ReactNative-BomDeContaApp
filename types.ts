@@ -6,6 +6,7 @@
 
 import { ReactNode } from "react";
 import { TextInput, TextInputProps, TextProps, TextStyle, TouchableOpacityProps, ViewStyle } from "react-native";
+import { Timestamp } from "react-native-reanimated/lib/typescript/commonTypes";
 
 export type ScreenWrapperProps = {
     style?: ViewStyle;
@@ -57,6 +58,23 @@ export type HeaderProps = {
     rightIcon?: ReactNode;
 };
 
+export type BackButtonProps = {
+  style?: ViewStyle;
+  iconSize?: number;
+};
+
+export type TransactionType = {
+  id?: string;
+  type: string;
+  amount: number;
+  category?: string;
+  date: Date | Timestamp | string;
+  description?: string;
+  image?: any;
+  uid?: string;
+  walletId: string;
+};
+
 export interface InputProps extends TextInputProps {
     icon?: React.ReactNode;
     containerStyle?: ViewStyle;
@@ -81,3 +99,4 @@ export type ImageUploadProps = {
     imageStyle?: ViewStyle;
     placeholder?: string;
 };
+

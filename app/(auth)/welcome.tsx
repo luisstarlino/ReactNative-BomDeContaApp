@@ -7,18 +7,26 @@ import ScreenWrapper from '@/components/ScreenWrapper'
 import Typo from '@/components/Typo'
 import { colors, spacingX, spacingY } from '@/constants/theme'
 import { verticalScale } from '@/utils/styling'
+import { useRouter } from 'expo-router'
 import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated'
 
 const Welcome = () => {
+
+    //------------------------------------------------
+    // CONST'S
+    //------------------------------------------------
+    const router = useRouter();
+
+
     return (
         <ScreenWrapper>
             <View style={styles.container}>
 
                 {/* LOGIN BUTTON & IMAGE */}
                 <View>
-                    <TouchableOpacity style={styles.loginButton}>
+                    <TouchableOpacity style={styles.loginButton} onPress={()=> router.push('/(auth)/login')}>
                         <Typo>Sign in</Typo>
                     </TouchableOpacity>
                 </View>
@@ -49,7 +57,7 @@ const Welcome = () => {
                     <Animated.View
                         entering={FadeInDown.duration(1000).delay(200).springify().damping(12)}
                         style={styles.buttonContainer}>
-                        <Button>
+                        <Button onPress={()=> router.push('/(auth)/register')}>
                             <Typo size={22} color={colors.neutral900} fontWeight={"600"}>Iniciar</Typo>
                         </Button>
                     </Animated.View>
@@ -59,7 +67,7 @@ const Welcome = () => {
     )
 }
 
-export default Welcome
+export default Welcome;
 
 const styles = StyleSheet.create({
     container: {
