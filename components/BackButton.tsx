@@ -2,7 +2,7 @@
 * @Author: Luis Starlino
 * @Date: 2025-05-19 18:40
 *****************************************************************************************/
-import { colors } from '@/constants/theme';
+import { colors, radius } from '@/constants/theme';
 import { BackButtonProps } from '@/types';
 import { verticalScale } from '@/utils/styling';
 import { useRouter } from 'expo-router';
@@ -28,6 +28,10 @@ export default BackButton;
 
 const styles = StyleSheet.create({
     button: {
-
+        backgroundColor: colors.neutral600,
+        alignSelf: 'flex-start',
+        borderRadius: radius._12,
+        borderCurve: "continuous",
+        padding: 5
     }
 });
