@@ -1,14 +1,136 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import BackButton from '@/components/BackButton'
+import Button from '@/components/Button'
+import Input from '@/components/Input'
+import ScreenWrapper from '@/components/ScreenWrapper'
+import Typo from '@/components/Typo'
+import { colors, spacingX, spacingY } from '@/constants/theme'
+import { verticalScale } from '@/utils/styling'
+import { useRouter } from 'expo-router'
+import * as Icons from 'phosphor-react-native'
+import React, { useRef, useState } from 'react'
+import { Alert, Pressable, StyleSheet, View } from 'react-native'
 
 const Register = () => {
+
+  //------------------------------------------------
+  // CONST'S
+  //------------------------------------------------
+  var mailRef = useRef("");
+  var passRef = useRef("");
+  const router = useRouter();
+  var userNameRef = useRef("");
+
+  //------------------------------------------------
+  // USEEFFECTS'S
+  //------------------------------------------------
+  const [isLoading, setIsLoading] = useState(false);
+
+  //------------------------------------------------
+  // FUNCIONS
+  //------------------------------------------------
+  const onSubmit = async () => {
+
+    if (!mailRef.current || !passRef.current || !userNameRef.current) {
+      Alert.alert("Registrar Conta", "Preencha todos os campos para continuar");
+      return;
+    }
+
+    console.log({
+      mailRef,
+      passRef,
+      userNameRef,
+      message: "Good to go!"
+    });
+
+  }
+
   return (
-    <View>
-      <Text>Register</Text>
-    </View>
+    <ScreenWrapper>
+      <View style={styles.container}>
+        <BackButton iconSize={30} />
+
+        {/* GREETINS */}
+        <View style={{ gap: 5, marginTop: spacingY._20 }}>
+          <Typo size={30} fontWeight={"600"}>Vamos começar!</Typo>
+        </View>
+
+        {/* FORM */}
+        <View style={styles.form}>
+          <Typo size={16} color={colors.textLighter}>Crie sua conta para controlar seus gastos</Typo>
+
+          {/* USER NAME */}
+          <Input
+            placeholder='Full Name'
+            icon={<Icons.User size={verticalScale(26)} color={colors.neutral300} weight='fill' />}
+            onChangeText={v => userNameRef.current = v}
+          />
+
+          {/* EMAIL */}
+          <Input
+            placeholder='E-mail'
+            icon={<Icons.At size={verticalScale(26)} color={colors.neutral300} weight='fill' />}
+            onChangeText={v => mailRef.current = v}
+          />
+
+          {/* PASSWORD */}
+          <Input
+            placeholder='Senha'
+            secureTextEntry
+            icon={<Icons.Lock size={verticalScale(26)} color={colors.neutral300} weight='fill' />}
+            onChangeText={v => passRef.current = v}
+          />
+
+
+          <Button loading={isLoading} onPress={onSubmit}>
+            <Typo fontWeight={"700"} color={colors.black} size={21}>Criar conta</Typo>
+          </Button>
+        </View>
+
+
+        {/* FOOTER */}
+        <View style={styles.footer}>
+          <Typo size={15}>Já possui uma conta?</Typo>
+          <Pressable onPress={() => router.navigate('/(auth)/login')}>
+            <Typo size={15} fontWeight={"700"} color={colors.primary}>Login</Typo>
+          </Pressable>
+        </View>
+
+
+      </View>
+    </ScreenWrapper>
   )
 }
 
 export default Register
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    gap: spacingY._20,
+    paddingHorizontal: spacingX._20
+  },
+  welcomeText: {
+    fontSize: verticalScale(20),
+    fontWeight: "bold",
+    color: colors.text,
+  },
+  form: {
+    gap: spacingY._20,
+  },
+  forgotPassword: {
+    textAlign: "right",
+    fontWeight: "500",
+    color: colors.text,
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 5,
+  },
+  footerText: {
+    textAlign: "center",
+    color: colors.text,
+    fontSize: verticalScale(15),
+  },
+})

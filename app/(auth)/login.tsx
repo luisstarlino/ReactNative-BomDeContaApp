@@ -5,9 +5,10 @@ import ScreenWrapper from '@/components/ScreenWrapper'
 import Typo from '@/components/Typo'
 import { colors, spacingX, spacingY } from '@/constants/theme'
 import { verticalScale } from '@/utils/styling'
+import { useRouter } from 'expo-router'
 import * as Icons from 'phosphor-react-native'
 import React, { useRef, useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { Alert, Pressable, StyleSheet, View } from 'react-native'
 
 const Login = () => {
 
@@ -16,6 +17,7 @@ const Login = () => {
   //------------------------------------------------
   var mailRef = useRef("");
   var passRef = useRef("");
+  const router = useRouter();
 
   //------------------------------------------------
   // USEEFFECTS'S
@@ -26,6 +28,17 @@ const Login = () => {
   // FUNCIONS
   //------------------------------------------------
   const onSubmit = async () => {
+
+    if (!mailRef.current || !passRef.current) {
+      Alert.alert("Login", "Preencha o email e a senha para continuar!");
+      return;
+    }
+
+    console.log({
+      mailRef,
+      passRef,
+      message: "Good to go!"
+    });
 
   }
 
@@ -60,7 +73,7 @@ const Login = () => {
           />
 
           {/* BTN */}
-          <Typo size={14} color={colors.text} style={{alignSelf: 'flex-end'}}>
+          <Typo size={14} color={colors.text} style={{ alignSelf: 'flex-end' }}>
             Esqueceu sua senha?
           </Typo>
 
@@ -72,7 +85,10 @@ const Login = () => {
 
         {/* FOOTER */}
         <View style={styles.footer}>
-
+          <Typo size={15}>Não possui conta ainda?</Typo>
+          <Pressable onPress={() => router.navigate('/(auth)/register')}>
+            <Typo size={15} fontWeight={"700"} color={colors.primary}>Criar conta</Typo>
+          </Pressable>
         </View>
 
 
